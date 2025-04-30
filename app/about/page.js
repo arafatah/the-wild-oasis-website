@@ -1,8 +1,8 @@
 
 export default function page() {
   return (
-    <div>
-      
-    </div>
+    <h1>
+        About the wild-oasis
+    </h1>
   )
 }
