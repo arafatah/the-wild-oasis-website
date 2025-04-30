@@ -14,7 +14,7 @@ export default async function page() {
         ))}
       </ul>
 
-      <Counter />
+      <Counter user={data} />
     </div>
   );
 }
