@@ -1,8 +1,12 @@
 
+export const metadata = {
+  title: "Guest setting",
+};
+
 export default function page() {
   return (
     <div>
-      00
+     Test
     </div>
   )
 }

@@ -4,7 +4,12 @@ import Navigation from "@/app/_components/Navigation";
 import "@/app/_styles/globals.css";
 
 export const metadata = {
-  title: "The Blue Ridge",
+  title: {
+    template: "%s | The Blue Ridge",
+    default: "Welcome | The Blue Ridge",
+  },
+  description:
+    "Luxurious cabin hotel, located in the heart of the Italian Dolomites, surrounded by beautiful mountain and dark forests.",
 };
 
 export default function RootLayout({ children }) {
