@@ -11,4 +11,3 @@ export default function Counter({ user }) {
     </div>
   );
 }
-0;
