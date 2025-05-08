@@ -10,7 +10,7 @@ export const metadata = {
 // export const revalidate = 0;
 
 export default async function Page({ searchParams }) {
-  const filter = await searchParams?.capacity ?? "all";
+  const filter = (await searchParams?.capacity) ?? "all";
 
   return (
     <div>
@@ -29,7 +29,7 @@ export default async function Page({ searchParams }) {
         <Filter />
       </div>
 
-      <Suspense fallback={<Spinner />}>
+      <Suspense fallback={<Spinner />} key={filter}>
         <CabinList filter={filter} />
       </Suspense>
     </div>
