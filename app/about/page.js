@@ -4,7 +4,7 @@ import Link from "next/link";
 import { getCabins } from "../_lib/data-service";
 
 
-export const revalidate = 2; 
+export const revalidate = 1; 
 
 export const metadata = {
   title: "About",
