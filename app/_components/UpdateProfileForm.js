@@ -4,7 +4,7 @@ import { updateGuest } from "../_lib/actions";
 import SubmitButton from "./SubmitButton";
 
 function UpdateProfileForm({ guest, children }) {
-  const { fullName, email, nationality, nationalID, countryFlag } = guest;
+  const { fullName, email, nationalID, countryFlag } = guest;
 
   return (
     <form
@@ -41,9 +41,12 @@ function UpdateProfileForm({ guest, children }) {
             }
             alt="Country flag"
             className="h-5 rounded-sm"
+            
           />
         </div>
+
         {children}
+
       </div>
 
       <div className="space-y-2">
