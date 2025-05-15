@@ -83,6 +83,10 @@ export async function updateBooking(formData) {
     throw new Error("Booking could not be updated");
   }
 
+  // Revalidation
+  revalidatePath(`/account/reservations/edit/${bookingId}`);
+  revalidatePath("/account/reservations");
+
   // Redirection to the path
   redirect("/account/reservations");
 }
