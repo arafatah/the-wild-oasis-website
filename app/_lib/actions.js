@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { auth, signIn, signOut } from "./auth";
 import { supabase } from "./supabase";
 import { getBookings } from "./data-service";
+import { redirect } from "next/navigation";
 
 export async function updateGuest(formData) {
   const session = await auth();
@@ -30,19 +31,60 @@ export async function deleteReservation(bookingId) {
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
 
-  const guestBookings = await getBookings(session.user.guestId)
-  const guestBookingsIds = guestBookings.map((booking) => booking.id)
+  const guestBookings = await getBookings(session.user.guestId);
+  const guestBookingsIds = guestBookings.map((booking) => booking.id);
 
-  if(!guestBookingsIds.includes(bookingId)) throw new Error("You are not allowed to delete this booking")
+  if (!guestBookingsIds.includes(bookingId))
+    throw new Error("You are not allowed to delete this booking");
 
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from("bookings")
     .delete()
     .eq("id", bookingId);
 
   if (error) throw new Error("Booking could not be deleted");
 
-  revalidatePath('/account/reservations')
+  revalidatePath("/account/reservations");
+}
+
+export async function updateBooking(formData) {
+  const bookingId = Number(formData.get("bookingId"));
+
+  console.log(bookingId);
+  // Authentication
+  const session = await auth();
+  if (!session) throw new Error("You must be logged in");
+
+  // Authorization
+  const guestBookings = await getBookings(session.user.guestId);
+  const guestBookingsIds = guestBookings.map((booking) => booking.id);
+
+  if (!guestBookingsIds.includes(bookingId))
+    throw new Error("You are not allowed to Update this booking");
+
+  // Building update data
+  const updateData = {
+    numGuests: Number(formData.get("numGuests")),
+    observations: formData.get("observations").slice(0, 1000),
+  };
+
+  console.log(updateData);
+  // Mutation
+  const { error } = await supabase
+    .from("bookings")
+    .update(updateData)
+    .eq("id", bookingId)
+    .select()
+    .single();
+
+  // Error handling
+  if (error) {
+    console.error(error);
+    throw new Error("Booking could not be updated");
+  }
+
+  // Redirection to the path
+  redirect("/account/reservations");
 }
 
 export async function singInAction() {
