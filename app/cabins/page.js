@@ -11,7 +11,7 @@ export const metadata = {
 // export const revalidate = 0;
 
 export default async function Page({ searchParams }) {
-  const filter = (await searchParams?.capacity) ?? "all";
+  const filter = searchParams?.capacity ?? "all";
 
   return (
     <div>
