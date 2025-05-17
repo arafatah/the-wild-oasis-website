@@ -57,7 +57,7 @@ app/                    # Main application code
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/arafatah/the-wild-oasis-website.git
    cd the-wild-oasis-website
    ```
 
